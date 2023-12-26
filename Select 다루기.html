@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:300px;
+            height:600px;
+            background-color: yellow;
+            margin: auto;
+        }
+        input{
+            width:96%;
+            height:35px;
+        }
+        select{
+            margin: 5px auto;
+            width:96%;
+            height:500px;
+            background-color: skyblue;
+            color:white;
+            font-weight: bold;
+            font-size:20px;
+        }
+    </style>
+    <script>
+        let input;
+
+        //select 박스에 , input 에서 입력한 데이터를 option으로 추가하자 
+        function addItem(){
+            console.log("입력예정");
+
+            let op=document.createElement("option"); //<option></option>
+            op.text=input.value;
+
+            //생성된 option 을 select 박스에 자식으로 추가하자 
+            let sel=document.querySelector("select");
+            sel.add(op);
+
+            //입력 데이터 초기화 
+            input.value="";
+        }
+
+        //select 박스가 보유한, option 요소들(=배열) 중 선택된 요소만을
+        //제거해보자
+        function del(){
+
+        }
+
+        addEventListener("load", function(){
+            input = document.querySelector("input");
+            input.addEventListener("keyup", function(){
+                if(event.keyCode==13){
+                    addItem();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    
+    <div id="wrapper">
+        <input type="text" placeholder="과일명 입력..">
+        <select multiple></select>
+        <button onClick="del()">선택삭제</button>
+        <button onClick="delAll()">모두삭제</button>
+    </div>
+
+</body>
+</html>

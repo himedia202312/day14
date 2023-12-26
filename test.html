@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+    </style>
+    <script>
+        let wrapper;
+        let colCount=7;
+        let rowCount=6;
+        let width=100;
+        let height=100;
+        let cellArray=[];
+
+        class Cell{
+            constructor(container, x, y, width, height, bg, text){
+                this.container=container;
+                this.div=document.createElement("div");
+                this.x=x;
+                this.y=y;
+                this.width=width;
+                this.height=height;
+                this.bg=bg;
+                this.text=text;
+
+                this.div.style.position="absolute";
+                this.div.style.left=this.x+"px";
+                this.div.style.top=this.y+"px";
+
+                this.div.style.width=this.width+"px";
+                this.div.style.height=this.height+"px";
+                this.div.style.background=this.bg;
+                this.div.innerText=this.text;
+                this.div.style.border="1px solid #ccc";
+                this.div.style.boxSizing="border-box";
+
+                this.container.appendChild(this.div);
+            }
+        }
+        
+        function createCell(){
+            //제목
+            let title=[];
+            let days=["Sun","Mon","Tue","Wed","Thur","Fri","Sat"];
+
+            for(let i=0;i<days.length;i++){
+                    //container, x, y, width, height, bg, text
+                    let cell = new Cell(wrapper, i*width, 0, width, 45,  "green", days[i]);
+            }
+
+
+            for(let a=0;a<rowCount;a++){
+                let arr=[];
+                for(let i=0;i<colCount;i++){
+                    //container, x, y, width, height, bg, text
+                    let cell = new Cell(wrapper, i*width, 45+(a*height), width, height,  "yellow", "텍스트");
+                    arr.push(cell);
+                }
+                cellArray.push(arr);
+            }
+        }
+
+        function init(){
+            wrapper = document.createElement("div");
+            wrapper.style.width= colCount * width+"px";
+            wrapper.style.height=45+ (rowCount * height)  + "px";
+            wrapper.style.margin="auto";
+            document.body.appendChild(wrapper);
+            createCell();
+        }
+
+        addEventListener("load", function(){
+            init();
+        });
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
