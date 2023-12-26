@@ -46,7 +46,19 @@
         //select 박스가 보유한, option 요소들(=배열) 중 선택된 요소만을
         //제거해보자
         function del(){
+            let sel=document.querySelector("select");
+            sel.remove(sel.selectedIndex);
+        }
 
+        //선택과 상관없이 select박스가 보유한 모든 option 들을 
+        //한꺼번에 제거해본다
+        function delAll(){
+            let sel=document.querySelector("select");
+            let len = sel.options.length; //옵션 배열의 길이를 보관 
+
+            for(let i=0;i<len;i++){
+                sel.remove(0);
+            }
         }
 
         addEventListener("load", function(){

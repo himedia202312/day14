@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:425px;
+            height:110px;
+            background-color: yellow;
+            margin: auto;
+            position: relative;
+            border:2px solid red;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        let imgArray=[
+            "img0.jpg","img1.jpg","img2.jpg","img3.jpg","img4.jpg","img5.jpg"
+        ];
+        let boxArray=[];
+        let wrapper;
+        let flag=true;
+
+        class Box{
+            constructor(container, src, x, y, width, height, velX){
+                this.container=container;
+                this.img=document.createElement("img");
+                this.img.src=src;
+                this.x=x;
+                this.y=y;
+                this.width=width;
+                this.height=height;
+                this.velX=velX;                
+
+                //style
+                this.img.style.position="absolute";
+                this.img.style.left=this.x+"px";
+                this.img.style.top=this.y+"px";
+
+                this.img.style.width=this.width+"px";
+                this.img.style.height=this.height+"px";
+                this.img.style.boxSizing="border-box";
+
+                this.container.appendChild(this.img);
+
+                this.img.addEventListener("mouseover", ()=>{
+                    flag=false;
+                    this.img.style.border="5px solid blue";
+                });
+                this.img.addEventListener("mouseout", function(){
+                    flag=true;
+                    this.img.style.border="none";
+                });
+
+            }
+            move(){
+                this.x +=this.velX;
+                if(this.x < -(100+5)){
+                    this.x=((100+5)*(imgArray.length-1));
+                }
+                this.img.style.left = this.x+"px";
+            }
+        }
+
+        function createBox(){
+            for(let i=0;i<imgArray.length;i++){
+                //container, src, x, y, width, height, velX
+                let box = new Box(wrapper, "../images/Shrek/"+imgArray[i], (i*(100+5)) , 5, 100, 100, -1);
+                boxArray.push(box);
+            }
+        }
+        
+        function gameLoop(){
+            if(flag){
+                for(let i=0;i<boxArray.length;i++){
+                    boxArray[i].move();
+                }
+            }
+        }
+        
+        addEventListener("load", function(){
+            wrapper = document.getElementById("wrapper");
+            createBox();
+
+            setInterval("gameLoop()",10);
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper"></div>    
+</body>
+</html>
